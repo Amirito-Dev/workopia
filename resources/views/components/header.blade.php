@@ -9,23 +9,23 @@
                 Home
             </x-nav-link>
 
-            <x-nav-link url="/jobs" :active="request()->is('/jobs')">
+            <x-nav-link url="/jobs" :active="request()->is('jobs')">
                 All Jobs
             </x-nav-link>
 
-            <x-nav-link url="/jobs/saved" :active="request()->is('/jobs/saved')">
+            <x-nav-link url="/jobs/saved" :active="request()->is('jobs/saved')">
                 Saved Jobs
             </x-nav-link>
 
-            <x-nav-link url="/login" :active="request()->is('/login')" icon="user">
+            <x-nav-link url="/login" :active="request()->is('login')" icon="user">
                 Login
             </x-nav-link>
 
-            <x-nav-link url="/register" :active="request()->is('/register')">
+            <x-nav-link url="/register" :active="request()->is('register')">
                 Register
             </x-nav-link>
 
-            <x-nav-link url="/dashboard" :active="request()->is('/dashboard')" icon="gauge">
+            <x-nav-link url="/dashboard" :active="request()->is('dashboard')" icon="gauge">
                 Dashboard
             </x-nav-link>
 
@@ -45,9 +45,10 @@
         id="mobile-menu"
         class="md:hidden bg-blue-900 text-white mt-5 pb-4 space-y-2"
     >
-        <a href="{{url('/jobs')}}" class="block px-4 py-2 hover:bg-blue-700"
-            >All Jobs</a
-        >
+    <x-nav-link url="/jobs" :active="request()->is('jobs')" :mobile="true">
+        All Jobs
+    </x-nav-link>
+
         <a
             href="{{url('/jobs/saved')}}"
             class="block px-4 py-2 hover:bg-blue-700"
