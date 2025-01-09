@@ -2,7 +2,7 @@
 <h1>Available Jobs</h1>
 <ul>
     @forelse($jobs as $job)
-        <li>{{$loop->index}} - {{$job}}</li>
+        <li> <a href="{{route('jobs.show', $job->id)}}">{{$loop->index}} - {{$job->title}}</a> </li>
     @empty
         <li>No jobs available</li>
     @endforelse
