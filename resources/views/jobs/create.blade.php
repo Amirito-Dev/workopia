@@ -1,9 +1,6 @@
 <x-layout>
     <x-slot name="title">Create Job</x-slot>
     <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-semibold">
-            <a href="index.html">Workopia</a>
-        </h1>
         <nav class="hidden md:flex items-center space-x-4">
             <a href="jobs.html" class="text-white hover:underline py-2"
                 >All Jobs</a
@@ -27,12 +24,7 @@
             >
                 <i class="fa fa-gauge mr-1"></i> Dashboard
             </a>
-            <a
-                href="create-job.html"
-                class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded hover:shadow-md transition duration-300"
-            >
-                <i class="fa fa-edit"></i> Create Job
-            </a>
+
         </nav>
         <button
             id="hamburger"
@@ -115,69 +107,22 @@
 
             <x-inputs.text  id="salary" name="salary" label="Salary" placeholder="90000" type="number"/>
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="requirements"
-                    >Requirements</label
-                >
-                <textarea
-                    id="requirements"
-                    name="requirements"
-                    class="w-full px-4 py-2 border rounded focus:outline-none"
-                    placeholder="Bachelor's degree in Computer Science"
-                ></textarea>
-            </div>
+            <x-inputs.text-area id="requirements" name="requirements" label="Requirements" placeholder="Bachelor's degree in Computer Science" />
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="benefits"
-                    >Benefits</label
-                >
-                <textarea
-                    id="benefits"
-                    name="benefits"
-                    class="w-full px-4 py-2 border rounded focus:outline-none"
-                    placeholder="Health insurance, 401k, paid time off"
-                ></textarea>
-            </div>
+            <x-inputs.text-area id="benefits" name="benefits" label="Benefits" placeholder="Health insurance, 401k, paid time off" />
 
             <x-inputs.text  id="tags" name="tags" label="Tags (comma-separated)" placeholder="development,coding,java,python"/>
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="job_type"
-                    >Job Type</label
-                >
-                <select
-                    id="job_type"
-                    name="job_type"
-                    class="w-full px-4 py-2 border rounded focus:outline-none @error('job_type') border-red-500 @enderror"
-                >
-                    <option value="Full-Time" {{ old('job_type') == 'Full-Time' ? 'selected' : '' }}>
-                        Full-Time
-                    </option>
-                    <option value="Part-Time" {{ old('job_type') == 'Part-Time' ? 'selected' : '' }}>Part-Time</option>
-                    <option value="Contract" {{ old('job_type') == 'Contract' ? 'selected' : '' }}>Contract</option>
-                    <option value="Temporary" {{ old('job_type') == 'Temporary' ? 'selected' : '' }}>Temporary</option>
-                    <option value="Internship" {{ old('job_type') == 'Internship' ? 'selected' : '' }}>Internship</option>
-                    <option value="Volunteer" {{ old('job_type') == 'Volunteer' ? 'selected' : '' }}>Volunteer</option>
-                    <option value="On-Call" {{ old('job_type') == 'On-Call' ? 'selected' : '' }}>On-Call</option>
-                </select>
-                @error('job_type')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            <x-inputs.select id="job_type" name="job_type" label="Job Type" value="{{ old('job_type') }}"
+            :options="['Full-Time' => 'Full-Time', 'Part-Time' => 'Part-Time',
+                        'Contract' => 'Contract', 'Temporary' => 'Temporary',
+                        'Internship' => 'Internship', 'Volunteer' => 'Volunteer',
+                        'On-Call' => 'On-Call']"/>
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="remote"
-                    >Remote</label
-                >
-                <select
-                    id="remote"
-                    name="remote"
-                    class="w-full px-4 py-2 border rounded focus:outline-none"
-                >
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
-                </select>
-            </div>
+            <x-inputs.select id="remote" name="remote" label="Remote"
+            value="{{ old('remote') }}"
+            :options="['0' => 'No', '1' => 'Yes']"/>
+
 
             <x-inputs.text  id="address" name="address" label="Address" placeholder="123 Main St"/>
 
@@ -195,41 +140,15 @@
 
             <x-inputs.text  id="company_name" name="company_name" label="Company Name" placeholder="Company name"/>
 
-            <div class="mb-4">
-                <label
-                    class="block text-gray-700"
-                    for="company_description"
-                    >Company Description</label
-                >
-                <textarea
-                    id="company_description"
-                    name="company_description"
-                    class="w-full px-4 py-2 border rounded focus:outline-none"
-                    placeholder="Company Description"
-                ></textarea>
-            </div>
+            <x-inputs.text-area id="description" name="description" label="Description" placeholder="Company Description" />
 
-            <x-inputs.text  id="company_website" name="company_website" label="Company Website" placeholder="Enter website"/>
+            <x-inputs.text  id="company_website" name="company_website" label="Company Website" placeholder="Enter website" type="url" />
 
             <x-inputs.text  id="contact_phone" name="contact_phone" label="Contact Phone" placeholder="Enter phone"/>
 
             <x-inputs.text  id="contact_email" name="contact_email" label="Contact Email" placeholder="Email where you want to receive applications" type="email"/>
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="company_logo"
-                    >Company Logo</label
-                >
-                <input
-                    id="company_logo"
-                    type="file"
-                    name="company_logo"
-                    class="w-full px-4 py-2 border rounded focus:outline-none
-                    @error('company_logo') border-red-500 @enderror"
-                />
-                @error('company_logo')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            <x-inputs.file id="company_logo" name="company_logo" label="Company Logo" />
 
             <button
                 type="submit"
