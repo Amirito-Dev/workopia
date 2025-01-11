@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Job;
+use Illuminate\Http\RedirectResponse;
 
 class JobController extends Controller
 {
@@ -32,9 +33,43 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): string
+    public function store(Request $request): RedirectResponse
     {
-        return "Store";
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'salary' => 'required|integer',
+            'tags' => 'nullable|string',
+            'job_type' => 'required|string',
+            'remote' => 'required|boolean',
+            'requirements' => 'nullable|string',
+            'benefits' => 'nullable|string',
+            'address' => 'nullable|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'contact_email' => 'required|string',
+            'contact_phone' => 'nullable|string',
+            'company_name' => 'required|string',
+            'company_description' => 'nullable|string',
+            'company_logo' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'company_website' => 'nullable|url',
+        ]);
+
+        // Temporary hardcode the user id
+        $validatedData['user_id'] = 1;
+
+        if ($request->hasFile('company_logo')) {
+            // Store the path as public/logos/...
+            $path = $request->file('company_logo')->store('logos', 'public');
+
+            $validatedData['company_logo'] = $path;
+        }
+
+        // Insert to database
+        Job::create($validatedData);
+
+        return redirect()->route('jobs.index')->with('success', 'Job created successfully!');
     }
 
     /**
@@ -48,9 +83,9 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): string
+    public function edit(Job $job): View
     {
-        return "Edit";
+        return view('jobs.edit')->with('job', $job);
     }
 
     /**
