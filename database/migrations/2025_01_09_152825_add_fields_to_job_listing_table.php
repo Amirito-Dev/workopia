@@ -26,7 +26,7 @@ return new class extends Migration
                 'Temporary',
                 'Internship',
                 'Volunteer',
-                'On_Call'
+                'On-Call'
             ])->default('Full-Time');
             $table->boolean('remote')->default(false);
             $table->string('requirements')->nullable();
